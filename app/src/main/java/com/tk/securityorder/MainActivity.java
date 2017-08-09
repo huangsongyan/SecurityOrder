@@ -10,13 +10,8 @@ import android.view.animation.LinearInterpolator;
 import android.widget.RelativeLayout;
 
 import com.jaeger.library.StatusBarUtil;
-import com.tk.securityorder.totp.Base32String;
-import com.tk.securityorder.totp.CountUtils;
 import com.tk.securityorder.totp.PasscodeGenerator;
 import com.tk.securityorder.widget.RoundProgressBar;
-
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
 
 public class MainActivity extends Activity {
 
@@ -46,7 +41,7 @@ public class MainActivity extends Activity {
         long currentTime = System.currentTimeMillis() / 1000;
         float progress = currentTime % 30 / 30.0f * 100;
         anim(progress);
-        roundProgressBar.setTotpNum(CountUtils.getTotpNum());
+        roundProgressBar.setTotpNum(PasscodeGenerator.generateTotpNum());
     }
 
 
@@ -72,7 +67,7 @@ public class MainActivity extends Activity {
                     if (isFirst) {
                         isFirst = false;
                         anim(0.1f, true);
-                        roundProgressBar.setTotpNum(CountUtils.getTotpNum());
+                        roundProgressBar.setTotpNum(PasscodeGenerator.generateTotpNum());
                     }
 
                 }
@@ -104,7 +99,7 @@ public class MainActivity extends Activity {
                     } else {
                         mainLayout.setBackgroundResource(R.mipmap.bg_img_2);
                     }
-                    roundProgressBar.setTotpNum(CountUtils.getTotpNum());
+                    roundProgressBar.setTotpNum(PasscodeGenerator.generateTotpNum());
                 }
                 num = money;
             }
