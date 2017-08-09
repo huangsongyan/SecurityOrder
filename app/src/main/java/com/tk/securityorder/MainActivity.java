@@ -46,23 +46,9 @@ public class MainActivity extends Activity {
         long currentTime = System.currentTimeMillis() / 1000;
         float progress = currentTime % 30 / 30.0f * 100;
         anim(progress);
-        roundProgressBar.setTotpNum(getTotpNum());
+        roundProgressBar.setTotpNum(CountUtils.getTotpNum());
     }
 
-    private String getTotpNum() {
-        try {
-            byte[] KEYBYTES = Base32String.decode("LFLFMU2SGVCUIUCZKBMEKRKLIQ");
-            Mac mac = Mac.getInstance("HMACSHA1");
-            mac.init(new SecretKeySpec(KEYBYTES, ""));
-            PasscodeGenerator passcodeGenerator = new PasscodeGenerator(mac);
-            String toptnum = passcodeGenerator.generateResponseCode(CountUtils.getValueAtTime(CountUtils
-                    .millisToSeconds(CountUtils.currentTimeMillis())));
-            return toptnum;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "";
-    }
 
     public void anim(float progress) {
         anim(progress, false);
@@ -86,7 +72,7 @@ public class MainActivity extends Activity {
                     if (isFirst) {
                         isFirst = false;
                         anim(0.1f, true);
-                        roundProgressBar.setTotpNum(getTotpNum());
+                        roundProgressBar.setTotpNum(CountUtils.getTotpNum());
                     }
 
                 }
@@ -118,7 +104,7 @@ public class MainActivity extends Activity {
                     } else {
                         mainLayout.setBackgroundResource(R.mipmap.bg_img_2);
                     }
-                    roundProgressBar.setTotpNum(getTotpNum());
+                    roundProgressBar.setTotpNum(CountUtils.getTotpNum());
                 }
                 num = money;
             }
